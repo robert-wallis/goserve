@@ -1,4 +1,8 @@
 // Copyright (C) 2018 Robert A. Wallis, All Rights Reserved
+
+// goserve is a very simple localhost:8000 static file server, for developing static sites.
+//
+// Usage: run `goserve` in a folder.  It's files will be available at http://localhost:8000/
 package main
 
 import (
