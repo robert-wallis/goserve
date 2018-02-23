@@ -14,6 +14,7 @@ func main() {
 	var fileServer = http.FileServer(http.Dir("."))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Method, r.RequestURI, r.RemoteAddr)
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 		fileServer.ServeHTTP(w, r)
 	})
 	log.Fatal(http.ListenAndServe(*port, nil))
