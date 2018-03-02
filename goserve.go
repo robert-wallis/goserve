@@ -7,6 +7,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -21,5 +22,6 @@ func main() {
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 		fileServer.ServeHTTP(w, r)
 	})
+	fmt.Println("Listening at", *port)
 	log.Fatal(http.ListenAndServe(*port, nil))
 }
