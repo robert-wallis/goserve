@@ -20,6 +20,9 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Method, r.RequestURI, r.RemoteAddr)
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Set("Cross-Origin-Resource-Policy", "same-site")
+		w.Header().Set("Cross-Origin-Opener-Policy", "same-origin")
+		w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
 		fileServer.ServeHTTP(w, r)
 	})
 	fmt.Println("Listening at", *port)
