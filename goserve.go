@@ -12,7 +12,8 @@ import (
 	"net/http"
 )
 
-var port = flag.String("port", "localhost:8000", "server binding")
+var g_port = flag.String("port", "localhost:8000", "server binding")
+var g_corp = flag.String("corp", "same-site", "Cross-Origin-Resource-Policy \"same-site\" | \"cross-origin\"")
 
 func main() {
 	flag.Parse()
@@ -20,11 +21,11 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println(r.Method, r.RequestURI, r.RemoteAddr)
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-		w.Header().Set("Cross-Origin-Resource-Policy", "same-site")
+		w.Header().Set("Cross-Origin-Resource-Policy", *g_corp)
 		w.Header().Set("Cross-Origin-Opener-Policy", "same-origin")
 		w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
 		fileServer.ServeHTTP(w, r)
 	})
-	fmt.Println("Listening at", *port)
-	log.Fatal(http.ListenAndServe(*port, nil))
+	fmt.Println("Listening at", *g_port)
+	log.Fatal(http.ListenAndServe(*g_port, nil))
 }
