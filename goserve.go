@@ -12,7 +12,7 @@ import (
 	"net/http"
 )
 
-var g_port = flag.String("port", "localhost:8000", "server binding")
+var g_bind = flag.String("bind", "localhost:8000", "server binding")
 var g_corp = flag.String("corp", "same-site", "Cross-Origin-Resource-Policy \"same-site\" | \"cross-origin\"")
 
 func main() {
@@ -26,6 +26,6 @@ func main() {
 		w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
 		fileServer.ServeHTTP(w, r)
 	})
-	fmt.Println("Listening at", *g_port)
-	log.Fatal(http.ListenAndServe(*g_port, nil))
+        fmt.Printf("Listening at http://%s\n", *g_bind)
+	log.Fatal(http.ListenAndServe(*g_bind, nil))
 }
